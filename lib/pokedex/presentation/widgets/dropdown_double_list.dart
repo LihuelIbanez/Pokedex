@@ -10,7 +10,9 @@ class DropDownDoubleList extends StatelessWidget {
     Key? key,
     required this.imageList,
     required this.onTap,
+    required this.scrollController,
   }) : super(key: key);
+  ScrollController scrollController;
   final CheckCallback onTap;
   final List<Pokemon> imageList;
   final List<Pokemon> evenList = [];
@@ -32,6 +34,7 @@ class DropDownDoubleList extends StatelessWidget {
     return Stack(
       children: [
         SingleChildScrollView(
+          controller: scrollController,
           child: Stack(
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
@@ -40,19 +43,27 @@ class DropDownDoubleList extends StatelessWidget {
                   child: ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: oddList.length,
+                    itemCount: oddList.length + 1,
                     itemBuilder: (_, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          onTap(oddList[index].id!, oddList[index]);
-                        },
-                        child: PhotoThumb(
-                          name: oddList[index].name ?? '',
-                          photoLow: oddList[index].img!,
-                          index: index,
-                          id: oddList[index].id!,
-                        ),
-                      );
+                      if (index < oddList.length) {
+                        return GestureDetector(
+                          onTap: () {
+                            onTap(oddList[index].id!, oddList[index]);
+                          },
+                          child: PhotoThumb(
+                            name: oddList[index].name ?? '',
+                            photoLow: oddList[index].img!,
+                            id: oddList[index].id ?? 0,
+                          ),
+                        );
+                      } else {
+                        return const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 32),
+                            child: Center(
+                                child: CircularProgressIndicator(
+                              color: Colors.white,
+                            )));
+                      }
                     },
                   ),
                 ),
@@ -61,19 +72,27 @@ class DropDownDoubleList extends StatelessWidget {
                   child: ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: evenList.length,
+                    itemCount: evenList.length + 1,
                     itemBuilder: (_, index) {
-                      return GestureDetector(
-                        onTap: () =>
-                            onTap(evenList[index].id!, evenList[index]),
-                        child: PhotoThumb(
-                          name: evenList[index].name ?? '',
-                          photoLow: evenList[index].img!,
-                          index: index,
-                          isEven: true,
-                          id: evenList[index].id!,
-                        ),
-                      );
+                      if (index < evenList.length) {
+                        return GestureDetector(
+                          onTap: () =>
+                              onTap(evenList[index].id!, evenList[index]),
+                          child: PhotoThumb(
+                            name: evenList[index].name ?? '',
+                            photoLow: evenList[index].img!,
+                            isEven: true,
+                            id: evenList[index].id ?? 0,
+                          ),
+                        );
+                      } else {
+                        return const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 32),
+                            child: Center(
+                                child: CircularProgressIndicator(
+                              color: Colors.white,
+                            )));
+                      }
                     },
                   ),
                 ),

@@ -24,9 +24,10 @@ class PokemonModels extends Pokemon {
         );
   factory PokemonModels.fromJson(Map<String, dynamic> json) {
     return PokemonModels(
-      id: json['id'],
+      id: int.parse((json['url']).substring(34).replaceAll('/', '')),
       name: json['name'],
-      img: json['img'],
+      img:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${int.parse((json['url']).substring(34).replaceAll('/', ''))}.png',
     );
   }
 }

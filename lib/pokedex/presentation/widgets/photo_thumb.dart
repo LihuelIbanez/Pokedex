@@ -6,13 +6,11 @@ class PhotoThumb extends StatelessWidget {
     required this.id,
     required this.name,
     required this.photoLow,
-    required this.index,
     this.isEven = false,
   }) : super(key: key);
   final int id;
   final String name;
   final String photoLow;
-  final int index;
   final bool isEven;
 
   @override
@@ -22,7 +20,7 @@ class PhotoThumb extends StatelessWidget {
         tag: id,
         transitionOnUserGestures: true,
         child: Padding(
-          padding: EdgeInsets.only(top: index == 0 && isEven ? 60 : 20),
+          padding: EdgeInsets.only(top: 20),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(25),
             child: Container(
@@ -43,7 +41,7 @@ class PhotoThumb extends StatelessWidget {
         ),
       ),
       Container(
-        margin: EdgeInsets.only(top: index == 0 && isEven ? 60 : 20),
+        margin: EdgeInsets.only(top: 20),
         child: Column(
           children: [
             ClipRRect(
@@ -70,7 +68,7 @@ class PhotoThumb extends StatelessWidget {
       Column(
         children: [
           SizedBox(
-            height: index == 0 && isEven ? 260 : 220,
+            height: 220,
           ),
           Align(
               alignment: Alignment.center,
