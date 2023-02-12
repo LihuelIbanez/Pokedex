@@ -22,15 +22,5 @@ class PokemonStatsController extends GetxController {
     super.onInit();
     id.value = Get.arguments[0];
     pokemon.value = Get.arguments[1];
-    await loadPokemonStats();
-  }
-
-  Future loadPokemonStats() async {
-    PokeAPI.getPokemon2Stats().then((response) {
-      Map<String, dynamic> data = json.decode(response.body)[pokemon][idValue];
-      print(data);
-      pokemonStats.value = StatsModels.fromJson(data);
-      print(pokemonStats.value);
-    });
   }
 }

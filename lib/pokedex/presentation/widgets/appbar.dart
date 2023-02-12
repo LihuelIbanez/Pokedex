@@ -1,5 +1,5 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:pokedex_flutter/core/utils/constanst.dart';
 
 class AppBarDiscover extends StatelessWidget with PreferredSizeWidget {
   AppBarDiscover({Key? key, this.showback = false}) : super(key: key);
@@ -8,19 +8,10 @@ class AppBarDiscover extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 2,
-      title: ZoomIn(
-          child: Bounce(
-        infinite: true,
-        child: const Text('POKEDEX',
-            style: TextStyle(
-                color: Colors.blueGrey,
-                fontFamily: 'Pixel',
-                fontSize: 29,
-                fontWeight: FontWeight.w800)),
-      )),
+      title: Image.asset('assets/images/pokemon.png', height: 30),
       centerTitle: true,
       bottomOpacity: 0.0,
-      backgroundColor: Colors.red[900],
+      backgroundColor: ColorsPokemon.backgroundColor,
       automaticallyImplyLeading: showback,
     );
   }

@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:pokedex_flutter/core/utils/constanst.dart';
 import 'package:pokedex_flutter/core/utils/routes.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -52,10 +54,10 @@ class SplashScreenState extends State<SplashScreen>
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
                 colors: [
-              Colors.red,
-              Colors.redAccent,
-              Colors.redAccent,
-              Colors.red
+              ColorsPokemon.backgroundColor,
+              ColorsPokemon.backgroundColor,
+              ColorsPokemon.backgroundColor,
+              ColorsPokemon.backgroundColor,
             ])),
         child: Stack(
           fit: StackFit.expand,
@@ -80,15 +82,13 @@ class SplashScreenState extends State<SplashScreen>
                 SizedBox(
                     width: animation.value * 500,
                     child: Center(
-                      child: ZoomOut(
-                        delay: const Duration(seconds: 1),
-                        child: Text('POKEDEX',
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Pixel',
-                                fontSize: 20,
-                                fontWeight: FontWeight.w800),
-                            textScaleFactor: animation.value * 4),
+                      child: Spin(
+                        duration: const Duration(seconds: 2),
+                        child: ZoomIn(
+                            duration: const Duration(seconds: 2),
+                            child: SvgPicture.asset(
+                                'assets/images/pokeball.svg',
+                                height: 150)),
                       ),
                     )),
               ],

@@ -11,8 +11,22 @@ class Pokemon extends Equatable {
   final int? id;
   final String? name;
   final String? img;
+  final String? type;
+  final String? height;
+  final String? weight;
+  final String? description;
+  final String? category;
+  final String? abilities;
+  final Future<Pokemon>? futurePokemon;
 
   const Pokemon({
+    this.futurePokemon,
+    this.type,
+    this.height,
+    this.weight,
+    this.description,
+    this.category,
+    this.abilities,
     this.id,
     this.name,
     this.img,

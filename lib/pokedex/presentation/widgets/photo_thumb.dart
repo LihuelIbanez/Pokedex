@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_flutter/core/utils/constanst.dart';
 
 class PhotoThumb extends StatelessWidget {
   const PhotoThumb({
@@ -16,47 +17,23 @@ class PhotoThumb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      Hero(
-        tag: id,
-        transitionOnUserGestures: true,
-        child: Padding(
-          padding: EdgeInsets.only(top: 20),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(25),
-            child: Container(
-              color: Colors.grey,
-              child: SizedBox(
-                width: 150,
-                height: 250,
-                child: FadeInImage.assetNetwork(
-                  placeholderFit: BoxFit.none,
-                  placeholderScale: 5,
-                  placeholder: 'assets/images/loading.gif',
-                  image: photoLow,
-                  fit: BoxFit.fitWidth,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
       Container(
-        margin: EdgeInsets.only(top: 20),
+        margin: const EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 40),
         child: Column(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(25),
               child: Container(
-                width: 150,
-                height: 250,
+                height: 125,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    begin: Alignment.center,
-                    stops: const [0.3, 1],
-                    end: Alignment.bottomCenter,
+                    begin: Alignment.bottomRight,
+                    stops: const [0, 1],
+                    end: Alignment.topLeft,
                     colors: [
-                      Colors.black.withOpacity(0.0),
-                      Colors.black.withOpacity(0.5),
+                      ColorsPokemon.primaryColorDark.withOpacity(0.2),
+                      ColorsPokemon.primaryColorLight.withOpacity(1.0),
                     ],
                   ),
                 ),
@@ -65,16 +42,36 @@ class PhotoThumb extends StatelessWidget {
           ],
         ),
       ),
+      Hero(
+        tag: id,
+        transitionOnUserGestures: true,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: SizedBox(
+              height: 125,
+              child: FadeInImage.assetNetwork(
+                placeholderFit: BoxFit.none,
+                placeholderScale: 5,
+                placeholder: 'assets/images/loading.gif',
+                image: photoLow,
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+          ),
+        ),
+      ),
       Column(
         children: [
-          SizedBox(
-            height: 220,
+          const SizedBox(
+            height: 50,
           ),
           Align(
               alignment: Alignment.center,
               child: Text(
-                '$name \n id: $id',
-                textAlign: TextAlign.center,
+                'id: $id \n$name ',
+                textAlign: TextAlign.left,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   fontFamily: 'Pixel',

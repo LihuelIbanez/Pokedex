@@ -60,6 +60,7 @@ flutter:
   # example:
   assets:
     - assets/images/
+    - assets/images/pokeball.svg
     - assets/sounds/
 
   fonts:
