@@ -5,6 +5,7 @@ import 'package:pokedex_flutter/core/utils/constanst.dart';
 import 'package:pokedex_flutter/pokedex/domain/entities/pokemon.dart';
 import 'package:pokedex_flutter/pokedex/presentation/controllers/pokemon_stats_controller.dart';
 import 'package:pokedex_flutter/pokedex/presentation/widgets/appbar.dart';
+import 'package:pokedex_flutter/pokedex/presentation/widgets/loading_pokeball.dart';
 
 class PokemonStatsPage extends GetView<PokemonStatsController> {
   const PokemonStatsPage({super.key});
@@ -12,10 +13,13 @@ class PokemonStatsPage extends GetView<PokemonStatsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsPokemon.backgroundGalleryColor,
-      appBar: AppBarDiscover(showback: true),
-      body: const _Content(),
-    );
+        backgroundColor: ColorsPokemon.backgroundGalleryColor,
+        appBar: AppBarDiscover(showback: true),
+        body: controller.obx(
+          (state) => const _Content(),
+          onLoading: const Center(child: LoadingPokeball()),
+          onError: (error) => Center(child: Text(error.toString())),
+        ));
   }
 }
 
@@ -50,7 +54,7 @@ class BackGroundImage extends GetView<PokemonStatsController> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: controller.getPokemonStats(),
+        future: controller.getPokemonDescription(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Stack(
@@ -68,119 +72,140 @@ class BackGroundImage extends GetView<PokemonStatsController> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      height: 500,
-                      color: ColorsPokemon.backgroundGalleryColor,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '${(pokemon.name).toString().toUpperCase()} #${controller.descriptionValue.id ?? ""}',
-                            style: const TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 350),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Container(
+                        color: ColorsPokemon.backgroundGalleryColor,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 50),
+                              child: Text(
+                                '${(pokemon.name).toString().toUpperCase()} #${controller.descriptionValue.id ?? ""}',
+                                style: const TextStyle(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            height: 60,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                itemCount:
-                                    controller.pokemonValue.pokemonType == null
-                                        ? 0
-                                        : controller
-                                            .pokemonValue.pokemonType!.length,
-                                itemBuilder: (_, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 20),
-                                    child: BubbleStat(
-                                      controller.pokemonValue
-                                          .pokemonType![index].name!
-                                          .toString(),
-                                      color: controller.changeColorBackground(
-                                          controller.pokemonValue
-                                              .pokemonType![index].name!),
-                                    ),
-                                  );
-                                }),
-                          ),
-                          Text(
-                            controller.descriptionValue.description ?? "",
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
+                            SizedBox(
+                              height: 80,
+                              child: pokemon.pokemonType != null
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                          ...pokemon.pokemonType!
+                                              .map((e) => Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 10,
+                                                        horizontal: 20),
+                                                    child: BubbleStat(
+                                                      e.name!,
+                                                      colorBorder: Colors.black,
+                                                      border: 2,
+                                                      color: controller
+                                                          .changeColorBackground(
+                                                              e.name!),
+                                                    ),
+                                                  ))
+                                              .toList()
+                                        ])
+                                  : const SizedBox(),
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              BubbleStat(
-                                'HP: ${pokemon.hp ?? ""}',
+                            Text(
+                              controller.descriptionValue.description ?? "",
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold,
                               ),
-                              BubbleStat(
-                                'SPEED: ${pokemon.speed ?? ""}',
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              BubbleStat(
-                                'DEF: ${pokemon.defense ?? ""}',
-                              ),
-                              BubbleStat(
-                                'ATTACK: ${pokemon.attack ?? ""}',
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              BubbleStat(
-                                'SP DEFENSE: ${pokemon.spDefense ?? ""}',
-                              ),
-                              BubbleStat(
-                                'SP ATTACK: ${pokemon.spAttack ?? ""}',
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              BubbleStat(
-                                'Height: ${pokemon.height ?? ""} ft',
-                              ),
-                              BubbleStat(
-                                'Weight: ${pokemon.weight ?? ""} lbs',
-                              ),
-                            ],
-                          ),
-                        ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                BubbleStat(
+                                  'HP: ${pokemon.hp ?? ""}',
+                                  color: const [
+                                    Colors.green,
+                                    ColorsPokemon.backgroundGalleryColor
+                                  ],
+                                  fontColor: Colors.white,
+                                ),
+                                BubbleStat(
+                                  'SPEED: ${pokemon.speed ?? ""}',
+                                  color: const [
+                                    Colors.blue,
+                                    ColorsPokemon.backgroundGalleryColor
+                                  ],
+                                  fontColor: Colors.white,
+                                  border: 4,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                BubbleStat(
+                                  'DEF: ${pokemon.defense ?? ""}',
+                                  fontsize: 20,
+                                  color: const [
+                                    Colors.teal,
+                                    ColorsPokemon.backgroundGalleryColor
+                                  ],
+                                  verticalPadding: 10,
+                                ),
+                                BubbleStat(
+                                  'ATTACK: ${pokemon.attack ?? ""}',
+                                  fontsize: 20,
+                                  color: const [
+                                    Colors.red,
+                                    ColorsPokemon.backgroundGalleryColor
+                                  ],
+                                  verticalPadding: 10,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                BubbleStat(
+                                  'SP DEFENSE: ${pokemon.spDefense ?? ""}',
+                                  fontsize: 20,
+                                  color: const [Colors.black, Colors.black12],
+                                  fontColor: Colors.white,
+                                  colorBorder: Colors.teal,
+                                  border: 4,
+                                  verticalPadding: 10,
+                                ),
+                                BubbleStat(
+                                  'SP ATTACK: ${pokemon.spAttack ?? ""}',
+                                  fontsize: 20,
+                                  color: const [Colors.black, Colors.black12],
+                                  colorBorder: Colors.red,
+                                  border: 4,
+                                  verticalPadding: 10,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-                Hero(
-                  tag: url,
-                  child: BounceInDown(
-                    duration: const Duration(milliseconds: 1000),
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Image.network(
-                        url,
-                      ),
+                BounceInDown(
+                  duration: const Duration(milliseconds: 1000),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Image.network(
+                      pokemon.img!,
                     ),
                   ),
                 ),
@@ -196,37 +221,53 @@ class BackGroundImage extends GetView<PokemonStatsController> {
 }
 
 class BubbleStat extends StatelessWidget {
-  const BubbleStat(this.text, {super.key, this.color, this.fontsize});
+  const BubbleStat(this.text,
+      {super.key,
+      this.color,
+      this.fontsize,
+      this.border,
+      this.colorBorder,
+      this.verticalPadding,
+      this.fontColor});
   final String text;
+
   final List<Color>? color;
+  final Color? fontColor;
+  final Color? colorBorder;
   final double? fontsize;
+  final double? border;
+  final double? verticalPadding;
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
+    return Container(
+      margin: EdgeInsets.only(bottom: verticalPadding ?? 10),
+      padding:
+          EdgeInsets.symmetric(horizontal: 20, vertical: verticalPadding ?? 0),
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              stops: const [0.5, 1],
-              end: Alignment.centerRight,
-              colors: color ??
-                  [
-                    ColorsPokemon.backgroundGalleryColor,
-                    ColorsPokemon.backgroundGalleryColor
-                  ],
-            ),
+        border:
+            Border.all(color: colorBorder ?? Colors.white, width: border ?? 0),
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          stops: const [0.5, 1],
+          end: Alignment.centerRight,
+          colors: color ??
+              [
+                ColorsPokemon.backgroundGalleryColor,
+                ColorsPokemon.backgroundGalleryColor
+              ],
+        ),
+      ),
+      child: Center(
+        child: Text(
+          text,
+          style: TextStyle(
+            color: fontColor ?? Colors.white,
+            fontSize: fontsize ?? 25,
+            fontWeight: FontWeight.bold,
           ),
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: fontsize ?? 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ));
+        ),
+      ),
+    );
   }
 }

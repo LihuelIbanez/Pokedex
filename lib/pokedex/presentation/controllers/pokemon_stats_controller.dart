@@ -6,7 +6,8 @@ import 'package:pokedex_flutter/core/utils/constanst.dart';
 import 'package:pokedex_flutter/pokedex/data/models/pokemon_models.dart';
 import 'package:pokedex_flutter/pokedex/domain/entities/pokemon.dart';
 
-class PokemonStatsController extends GetxController {
+class PokemonStatsController extends GetxController
+    with StateMixin<Description> {
   PokemonStatsController();
 
   final _pokemon = const Pokemon().obs;
@@ -23,7 +24,6 @@ class PokemonStatsController extends GetxController {
   void onInit() async {
     super.onInit();
     _id.value = Get.arguments[0];
-    _pokemon.value = Get.arguments[1];
     await getPokemonStats();
     await getPokemonDescription();
   }
@@ -31,7 +31,6 @@ class PokemonStatsController extends GetxController {
   Future getPokemonStats() async {
     PokeAPI.getPokemonStats(idValue).then((response) {
       _pokemon.value = StatsModel.fromJson(json.decode(response.body));
-      print(_pokemon.value);
       Future.delayed(const Duration(seconds: 1));
     });
   }
@@ -40,8 +39,8 @@ class PokemonStatsController extends GetxController {
     PokeAPI.getPokemonDescription(idValue).then((response) {
       _description.value =
           DescriptionModel.fromJson(json.decode(response.body));
-      print(_description.value.description);
       Future.delayed(const Duration(seconds: 1));
+      change(null, status: RxStatus.success());
     });
   }
 

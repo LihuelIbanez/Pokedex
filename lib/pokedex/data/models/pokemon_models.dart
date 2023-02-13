@@ -59,8 +59,12 @@ class StatsModel extends Pokemon {
       img:
           'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${json['id']}.png',
       type: json['types'][0]['type']['name'],
-      height: json['height'].toString(),
-      weight: json['weight'].toString(),
+      height: json['height']
+          .toString()
+          .replaceAll(RegExp(r"(\d)(?=(\d{1})+$)"), r"0,"),
+      weight: json['weight']
+          .toString()
+          .replaceAll(RegExp(r"(\d)(?=(\d{1})+$)"), r"0,"),
       hp: json['stats'][0]['base_stat'],
       attack: json['stats'][1]['base_stat'],
       defense: json['stats'][2]['base_stat'],

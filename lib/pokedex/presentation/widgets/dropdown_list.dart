@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/pokedex/domain/entities/pokemon.dart';
+import 'package:pokedex_flutter/pokedex/presentation/widgets/loading_pokeball.dart';
 
 import 'photo_thumb.dart';
 
@@ -44,9 +45,8 @@ class DropDownDoubleList extends StatelessWidget {
                     return const Padding(
                         padding: EdgeInsets.symmetric(vertical: 32),
                         child: Center(
-                            child: CircularProgressIndicator(
-                          color: Colors.black,
-                        )));
+                            child: SizedBox(
+                                height: 50, child: LoadingPokeball())));
                   }
                 },
               ),

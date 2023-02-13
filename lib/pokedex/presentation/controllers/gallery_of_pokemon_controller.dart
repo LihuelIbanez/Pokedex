@@ -6,9 +6,11 @@ import 'package:pokedex_flutter/core/utils/routes.dart';
 import 'package:pokedex_flutter/pokedex/data/models/pokemon_models.dart';
 import 'package:pokedex_flutter/pokedex/domain/entities/pokemon.dart';
 
-class GalleryOfPokemonController extends GetxController {
+class GalleryOfPokemonController extends GetxController
+    with StateMixin<Pokemon> {
   var isDateLoadCompleted = false.obs;
   late RxList<Pokemon?> pokemonList = <Pokemon>[].obs;
+  // ignore: invalid_use_of_protected_member
   List<Pokemon> get pokemonListValue => pokemonList.value as List<Pokemon>;
 
   final scrollController = ScrollController();
@@ -39,6 +41,7 @@ class GalleryOfPokemonController extends GetxController {
       pokemonList.addAll(data.map<Pokemon>((element) {
         return PokemonModels.fromJson(element);
       }).toList());
+      change(null, status: RxStatus.success());
     });
   }
 
