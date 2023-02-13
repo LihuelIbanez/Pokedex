@@ -14,7 +14,7 @@ class PokemonStatsPage extends GetView<PokemonStatsController> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorsPokemon.backgroundGalleryColor,
-        appBar: AppBarDiscover(showback: true),
+        appBar: AppBarPokemon(showback: true),
         body: controller.obx(
           (state) => const _Content(),
           onLoading: const Center(child: LoadingPokeball()),
@@ -33,7 +33,6 @@ class _Content extends GetView<PokemonStatsController> {
             Align(
               alignment: Alignment.topCenter,
               child: BackGroundImage(
-                url: controller.pokemonValue.img!,
                 pokemon: controller.pokemonValue,
               ),
             ),
@@ -46,11 +45,9 @@ class BackGroundImage extends GetView<PokemonStatsController> {
   const BackGroundImage({
     super.key,
     required this.pokemon,
-    required this.url,
   });
 
   final Pokemon pokemon;
-  final String url;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(

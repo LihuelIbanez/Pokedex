@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/core/utils/constanst.dart';
 
-class AppBarDiscover extends StatelessWidget with PreferredSizeWidget {
-  AppBarDiscover({Key? key, this.showback = false}) : super(key: key);
+class AppBarPokemon extends StatelessWidget with PreferredSizeWidget {
+  AppBarPokemon({Key? key, this.showback = false}) : super(key: key);
   final bool showback;
   @override
   Widget build(BuildContext context) {
@@ -10,9 +10,7 @@ class AppBarDiscover extends StatelessWidget with PreferredSizeWidget {
       elevation: 2,
       title: Image.asset('assets/images/pokemon.png', height: 30),
       centerTitle: true,
-      bottomOpacity: 0.0,
       backgroundColor: ColorsPokemon.backgroundColor,
-      automaticallyImplyLeading: showback,
     );
   }
 

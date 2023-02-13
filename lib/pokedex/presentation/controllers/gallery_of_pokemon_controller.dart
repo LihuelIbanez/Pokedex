@@ -13,12 +13,15 @@ class GalleryOfPokemonController extends GetxController
   // ignore: invalid_use_of_protected_member
   List<Pokemon> get pokemonListValue => pokemonList.value as List<Pokemon>;
 
+  late TextEditingController searchController;
+
   final scrollController = ScrollController();
   int pageNumber = 0;
   @override
   void onInit() async {
     super.onInit();
     await loadPokemonList();
+    searchController = TextEditingController();
     scrollController.addListener((() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
@@ -30,6 +33,7 @@ class GalleryOfPokemonController extends GetxController
 
   @override
   void onClose() {
+    TextEditingController().dispose();
     scrollController.dispose();
     super.onClose();
   }
@@ -49,10 +53,14 @@ class GalleryOfPokemonController extends GetxController
     Get.toNamed(Routes.pokemonStats, arguments: [id, pokemon]);
   }
 
-  Future loadStatsPokemon(int id) async {
-    PokeAPI.getPokemonStats(id).then((response) {
-      Pokemon pokemon = PokemonModels.fromJson(json.decode(response.body));
-      return pokemon;
-    });
+  void searchPokemon() {
+    if (searchController.text.isNotEmpty) {
+      int id = int.parse(searchController.text);
+      if (id > 0 && id < 898) {
+        Get.toNamed(Routes.pokemonStats, arguments: [id]);
+      }
+    } else {
+      loadPokemonList();
+    }
   }
 }
