@@ -11,4 +11,6 @@ class PokeAPI {
           "$baseUrl/pokemon?limit=$numLimit&offset=${numLimit * pageNumber}"));
   static Future<http.Response> getPokemonStats(int idPokemon) async =>
       await http.get(Uri.parse("$baseUrl/pokemon/$idPokemon"));
+  static Future<http.Response> getPokemonDescription(int idPokemon) async =>
+      await http.get(Uri.parse("$baseUrl/pokemon-species/$idPokemon"));
 }

@@ -43,8 +43,6 @@ class GalleryOfPokemonController extends GetxController {
   }
 
   void goToPokemonStatsPage(int id, Pokemon pokemon) {
-    print(pokemon.name);
-
     Get.toNamed(Routes.pokemonStats, arguments: [id, pokemon]);
   }
 

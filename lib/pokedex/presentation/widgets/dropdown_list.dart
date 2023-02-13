@@ -45,7 +45,7 @@ class DropDownDoubleList extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 32),
                         child: Center(
                             child: CircularProgressIndicator(
-                          color: Colors.white,
+                          color: Colors.black,
                         )));
                   }
                 },
