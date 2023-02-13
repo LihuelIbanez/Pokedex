@@ -1,6 +1,6 @@
 # Pokedex
- 
-A new Flutter project.
+
+A new Flutter project. (Flutter Version 3.7.3)
 
 It was a fun project!
 
@@ -29,4 +29,3 @@ Add new features for Search and personalization of the gallery.
 Regionalization.
 HTTP Client for more personalization calls to the server.
 Unit Testing.
-Firebase Login.
