@@ -30,4 +30,127 @@ class ColorsPokemon {
   static const Color typeRock = Color(0xFFB8A038);
   static const Color typeSteel = Color(0xFFB8B8D0);
   static const Color typeWater = Color(0xFF6890F0);
+
+  static List<Color> changeColorBackground(String? type) {
+    switch (type ?? 'normal') {
+      case 'grass':
+        {
+          return [
+            ColorsPokemon.typeGrass,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'fire':
+        {
+          return [ColorsPokemon.typeFire, ColorsPokemon.backgroundGalleryColor];
+        }
+      case 'water':
+        {
+          return [
+            ColorsPokemon.typeWater,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'bug':
+        {
+          return [ColorsPokemon.typeBug, ColorsPokemon.backgroundGalleryColor];
+        }
+      case 'normal':
+        {
+          return [
+            ColorsPokemon.typeNormal,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'poison':
+        {
+          return [
+            ColorsPokemon.typePoison,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'electric':
+        {
+          return [
+            ColorsPokemon.typeElectric,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'ground':
+        {
+          return [
+            ColorsPokemon.typeGround,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'fairy':
+        {
+          return [
+            ColorsPokemon.typeFairy,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'fighting':
+        {
+          return [
+            ColorsPokemon.typeFighting,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'psychic':
+        {
+          return [
+            ColorsPokemon.typePsychic,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'rock':
+        {
+          return [ColorsPokemon.typeRock, ColorsPokemon.backgroundGalleryColor];
+        }
+      case 'ghost':
+        {
+          return [
+            ColorsPokemon.typeGhost,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'ice':
+        {
+          return [ColorsPokemon.typeIce, ColorsPokemon.backgroundGalleryColor];
+        }
+      case 'dragon':
+        {
+          return [
+            ColorsPokemon.typeDragon,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'dark':
+        {
+          return [ColorsPokemon.typeDark, ColorsPokemon.backgroundGalleryColor];
+        }
+      case 'steel':
+        {
+          return [
+            ColorsPokemon.typeSteel,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      case 'flying':
+        {
+          return [
+            ColorsPokemon.typeFlying,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+      default:
+        {
+          return [
+            ColorsPokemon.backgroundColor,
+            ColorsPokemon.backgroundGalleryColor
+          ];
+        }
+    }
+  }
 }

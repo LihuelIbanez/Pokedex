@@ -8,12 +8,18 @@ import 'package:pokedex_flutter/pokedex/domain/entities/pokemon.dart';
 
 class GalleryOfPokemonController extends GetxController
     with StateMixin<Pokemon> {
-  var isDateLoadCompleted = false.obs;
   late RxList<Pokemon?> pokemonList = <Pokemon>[].obs;
   // ignore: invalid_use_of_protected_member
   List<Pokemon> get pokemonListValue => pokemonList.value as List<Pokemon>;
 
   late TextEditingController searchController;
+  late TextEditingController firstPokemonController;
+  late TextEditingController secondPokemonController;
+
+  final RxBool _isComparationEnable = false.obs;
+  bool get isComparationEnableValue => _isComparationEnable.value;
+  final RxBool isOpen = false.obs;
+  bool get isOpenValue => isOpen.value;
 
   final scrollController = ScrollController();
   int pageNumber = 0;
@@ -22,6 +28,8 @@ class GalleryOfPokemonController extends GetxController
     super.onInit();
     await loadPokemonList();
     searchController = TextEditingController();
+    firstPokemonController = TextEditingController();
+    secondPokemonController = TextEditingController();
     scrollController.addListener((() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
@@ -35,6 +43,9 @@ class GalleryOfPokemonController extends GetxController
   void onClose() {
     TextEditingController().dispose();
     scrollController.dispose();
+    searchController.dispose();
+    firstPokemonController.dispose();
+    secondPokemonController.dispose();
     super.onClose();
   }
 
@@ -53,6 +64,16 @@ class GalleryOfPokemonController extends GetxController
     Get.toNamed(Routes.pokemonStats, arguments: [id, pokemon]);
   }
 
+  void goToPokemonVersusPage() {
+    int first = (firstPokemonController.value.text.isNotEmpty)
+        ? int.parse(firstPokemonController.value.text)
+        : 1;
+    int second = (secondPokemonController.value.text.isNotEmpty)
+        ? int.parse(secondPokemonController.value.text)
+        : 1;
+    Get.toNamed(Routes.pokemonVersus, arguments: [first, second]);
+  }
+
   void searchPokemon() {
     if (searchController.text.isNotEmpty) {
       int id = int.parse(searchController.text);
@@ -62,5 +83,10 @@ class GalleryOfPokemonController extends GetxController
     } else {
       loadPokemonList();
     }
+  }
+
+  void comparationCheckEnable() {
+    _isComparationEnable.value = firstPokemonController.text.isNotEmpty &&
+        secondPokemonController.text.isNotEmpty;
   }
 }
