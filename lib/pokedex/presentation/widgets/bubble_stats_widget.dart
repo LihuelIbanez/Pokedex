@@ -1,53 +1,57 @@
+import 'package:dashed_circular_progress_bar/dashed_circular_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:pokedex_flutter/core/utils/constanst.dart';
 
-class BubbleStat extends StatelessWidget {
-  const BubbleStat(this.text,
+class ProgressStat extends StatelessWidget {
+  const ProgressStat(this.text,
       {super.key,
-      this.color,
-      this.fontsize,
-      this.border,
-      this.colorBorder,
-      this.verticalPadding,
-      this.fontColor});
+      required this.color,
+      required this.number,
+      this.fontColor,
+      required this.valueNotifier});
   final String text;
-
-  final List<Color>? color;
+  final int? number;
+  final Color color;
   final Color? fontColor;
-  final Color? colorBorder;
-  final double? fontsize;
-  final double? border;
-  final double? verticalPadding;
+  final ValueNotifier<double> valueNotifier;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: verticalPadding ?? 10),
-      padding:
-          EdgeInsets.symmetric(horizontal: 20, vertical: verticalPadding ?? 0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        border:
-            Border.all(color: colorBorder ?? Colors.white, width: border ?? 0),
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          stops: const [0.5, 1],
-          end: Alignment.centerRight,
-          colors: color ??
-              [
-                ColorsPokemon.backgroundGalleryColor,
-                ColorsPokemon.backgroundGalleryColor
-              ],
-        ),
-      ),
+    return DashedCircularProgressBar.aspectRatio(
+      aspectRatio: 2,
+      valueNotifier: valueNotifier,
+      animationCurve: Curves.bounceIn,
+      maxProgress: 200,
+      progress: number!.toDouble(),
+      startAngle: 244,
+      sweepAngle: 235,
+      foregroundColor: color,
+      backgroundColor: const Color(0xffeeeeee),
+      foregroundStrokeWidth: 15,
+      backgroundStrokeWidth: 15,
+      animation: true,
+      seekColor: const Color(0xffeeeeee),
       child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            color: fontColor ?? Colors.white,
-            fontSize: fontsize ?? 25,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        child: ValueListenableBuilder(
+            valueListenable: valueNotifier,
+            builder: (_, double value, __) => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '${value.toInt()}',
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 60),
+                    ),
+                    Text(
+                      text,
+                      style: TextStyle(
+                          color: fontColor ?? Colors.black,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 26),
+                    ),
+                  ],
+                )),
       ),
     );
   }

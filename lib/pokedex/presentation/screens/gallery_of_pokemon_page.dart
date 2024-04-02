@@ -17,7 +17,7 @@ class GalleryOFPokemonPage extends GetView<GalleryOfPokemonController> {
         drawer: PokemonDrawer(
           controller: controller,
         ),
-        appBar: AppBarPokemon(),
+        appBar: const AppBarPokemon(),
         body: controller.obx(
           (state) => const _Content(),
           onLoading: const Center(child: LoadingPokeball()),
@@ -31,15 +31,12 @@ class _Content extends GetView<GalleryOfPokemonController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Stack(children: [
-        DropDownDoubleList(
-          scrollController: controller.scrollController,
-          imageList: controller.pokemonListValue,
-          onTap: ((id, pokemon) =>
-              controller.goToPokemonStatsPage(id, pokemon)),
-        ),
-      ]),
-    );
+    return Stack(children: [
+      DropDownDoubleList(
+        controller: controller,
+        scrollController: controller.scrollController,
+        onTap: ((id, pokemon) => controller.goToPokemonStatsPage(id, pokemon)),
+      ),
+    ]);
   }
 }

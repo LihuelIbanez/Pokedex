@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -62,10 +63,10 @@ class SplashScreenState extends State<SplashScreen>
         child: Stack(
           fit: StackFit.expand,
           children: <Widget>[
-            Column(
+            const Column(
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
+              children: <Widget>[
                 Padding(
                     padding: EdgeInsets.only(bottom: 30.0),
                     child: Text('POKEDEX app',

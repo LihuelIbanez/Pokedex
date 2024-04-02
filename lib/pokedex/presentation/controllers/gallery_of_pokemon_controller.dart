@@ -1,16 +1,13 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pokedex_flutter/core/plataform/http_client.dart';
 import 'package:pokedex_flutter/core/utils/routes.dart';
-import 'package:pokedex_flutter/pokedex/data/models/pokemon_models.dart';
 import 'package:pokedex_flutter/pokedex/domain/entities/pokemon.dart';
+import 'package:pokedex_flutter/pokedex/domain/use%20cases/get_list_usecase.dart';
 
 class GalleryOfPokemonController extends GetxController
     with StateMixin<Pokemon> {
-  late RxList<Pokemon?> pokemonList = <Pokemon>[].obs;
-  // ignore: invalid_use_of_protected_member
-  List<Pokemon> get pokemonListValue => pokemonList.value as List<Pokemon>;
+  late RxList<Pokemon> pokemonList = <Pokemon>[].obs;
+  List<Pokemon> get pokemonListValue => pokemonList;
 
   late TextEditingController searchController;
   late TextEditingController firstPokemonController;
@@ -22,21 +19,19 @@ class GalleryOfPokemonController extends GetxController
   bool get isOpenValue => isOpen.value;
 
   final scrollController = ScrollController();
+
+  final GetPokemonList pokemonListUseCase;
+
+  GalleryOfPokemonController({
+    required this.pokemonListUseCase,
+  });
+
   int pageNumber = 0;
   @override
   void onInit() async {
+    await controllerStarted();
+    change(null, status: RxStatus.success());
     super.onInit();
-    await loadPokemonList();
-    searchController = TextEditingController();
-    firstPokemonController = TextEditingController();
-    secondPokemonController = TextEditingController();
-    scrollController.addListener((() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
-        pageNumber++;
-        loadPokemonList();
-      }
-    }));
   }
 
   @override
@@ -49,15 +44,35 @@ class GalleryOfPokemonController extends GetxController
     super.onClose();
   }
 
+  Future<void> controllerStarted() async {
+    if (pokemonList.isEmpty) {
+      await loadPokemonList();
+    }
+    searchController = TextEditingController();
+    firstPokemonController = TextEditingController();
+    secondPokemonController = TextEditingController();
+    scrollController.addListener((() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        pageNumber++;
+        loadPokemonList();
+      }
+    }));
+    change(null, status: RxStatus.success());
+  }
+
   Future loadPokemonList() async {
-    PokeAPI.getPokemons(20, pageNumber).then((response) {
-      List<Map<String, dynamic>> data =
-          List.from(json.decode(response.body)['results']);
-      pokemonList.addAll(data.map<Pokemon>((element) {
-        return PokemonModels.fromJson(element);
-      }).toList());
-      change(null, status: RxStatus.success());
-    });
+    try {
+      final result =
+          await pokemonListUseCase(GetPokemonListParams(20, pageNumber));
+      result.fold((l) {
+        change(null, status: RxStatus.error());
+      }, (r) {
+        pokemonList.addAll(r.pokemons!);
+      });
+    } catch (e) {
+      change(null, status: RxStatus.error());
+    }
   }
 
   void goToPokemonStatsPage(int id, Pokemon pokemon) {

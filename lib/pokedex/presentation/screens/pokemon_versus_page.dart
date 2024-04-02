@@ -5,7 +5,6 @@ import 'package:pokedex_flutter/core/utils/constanst.dart';
 import 'package:pokedex_flutter/pokedex/domain/entities/pokemon.dart';
 import 'package:pokedex_flutter/pokedex/presentation/controllers/pokemon_versus_controller.dart';
 import 'package:pokedex_flutter/pokedex/presentation/widgets/appbar.dart';
-import 'package:pokedex_flutter/pokedex/presentation/widgets/bubble_stats_widget.dart';
 import 'package:pokedex_flutter/pokedex/presentation/widgets/loading_pokeball.dart';
 
 class PokemonVersusPage extends GetView<PokemonVersusController> {
@@ -92,49 +91,6 @@ class PokemonRow extends GetView<PokemonVersusController> {
               image: pokemon.img ??
                   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
               height: 200,
-            ),
-            Row(
-              children: [
-                const Text('ID :'),
-                BubbleStat('#${pokemon.id.toString()}', fontColor: Colors.red),
-              ],
-            ),
-            Row(
-              children: [
-                const Text('HP MAX :'),
-                BubbleStat('${pokemon.hp.toString()} hp',
-                    fontColor: Colors.green),
-              ],
-            ),
-            Row(
-              children: [
-                const Text('SPEED :'),
-                BubbleStat(pokemon.speed.toString(), fontColor: Colors.blue),
-              ],
-            ),
-            Row(
-              children: [
-                const Text('ATTACK :'),
-                BubbleStat(pokemon.attack.toString(), fontColor: Colors.orange),
-              ],
-            ),
-            Row(
-              children: [
-                const Text('DEFENSE :'),
-                BubbleStat(pokemon.hp.toString(), fontColor: Colors.purple),
-              ],
-            ),
-            Row(
-              children: [
-                const Text('SP. ATTACK :'),
-                BubbleStat(pokemon.hp.toString(), fontColor: Colors.pink),
-              ],
-            ),
-            Row(
-              children: [
-                const Text('SP. DEFENSE :'),
-                BubbleStat(pokemon.hp.toString(), fontColor: Colors.yellow),
-              ],
             ),
           ],
         ),

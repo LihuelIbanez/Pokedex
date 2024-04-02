@@ -1,5 +1,12 @@
 import 'package:equatable/equatable.dart';
 
+class PokemonList extends Equatable {
+  final List<Pokemon>? pokemons;
+  const PokemonList({this.pokemons});
+  @override
+  List<Object?> get props => [pokemons];
+}
+
 class Pokemon extends Equatable {
   final int? id;
   final String? name;
@@ -17,10 +24,12 @@ class Pokemon extends Equatable {
   final List<PokemonType>? pokemonType;
 
   const Pokemon({
+    this.img,
     this.hp,
     this.attack,
     this.speed,
     this.defense,
+    this.name,
     this.spAttack,
     this.spDefense,
     this.type,
@@ -28,8 +37,6 @@ class Pokemon extends Equatable {
     this.weight,
     this.category,
     this.id,
-    this.name,
-    this.img,
     this.pokemonType,
   });
 

@@ -1,5 +1,20 @@
 import 'package:pokedex_flutter/pokedex/domain/entities/pokemon.dart';
 
+class PokemonListModel extends PokemonList {
+  const PokemonListModel({
+    List<Pokemon>? pokemons,
+  }) : super(
+          pokemons: pokemons,
+        );
+  factory PokemonListModel.fromJson(Map<String, dynamic> json) {
+    return PokemonListModel(
+      pokemons: (json['results'] as List)
+          .map<Pokemon>((e) => PokemonModels.fromJson(e))
+          .toList(),
+    );
+  }
+}
+
 class PokemonModels extends Pokemon {
   const PokemonModels({
     int? id,

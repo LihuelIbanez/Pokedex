@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/core/utils/constanst.dart';
 
-class AppBarPokemon extends StatelessWidget with PreferredSizeWidget {
-  AppBarPokemon({Key? key, this.showback = false, this.title})
+class AppBarPokemon extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarPokemon({Key? key, this.showback = false, this.title})
       : super(key: key);
   final Widget? title;
 
