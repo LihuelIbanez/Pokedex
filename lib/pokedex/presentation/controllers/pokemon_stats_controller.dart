@@ -5,8 +5,7 @@ import 'package:pokedex_flutter/pokedex/domain/entities/pokemon.dart';
 import 'package:pokedex_flutter/pokedex/domain/use%20cases/get_description_usecase.dart';
 import 'package:pokedex_flutter/pokedex/domain/use%20cases/get_stats_usecase.dart';
 
-class PokemonStatsController extends GetxController
-    with StateMixin<Description> {
+class PokemonStatsController extends GetxController with StateMixin<Pokemon> {
   PokemonStatsController(
       {required this.getPokemonStatsUseCase,
       required this.getPokemonDescriptionUseCase});

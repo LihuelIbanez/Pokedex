@@ -50,6 +50,7 @@ class StatsModel extends Pokemon {
     int? defense,
     int? spAttack,
     int? spDefense,
+    List<PokemonMove>? moves,
     List<PokemonType>? pokemonType,
   }) : super(
           id: id,
@@ -65,34 +66,67 @@ class StatsModel extends Pokemon {
           spAttack: spAttack,
           spDefense: spDefense,
           category: category,
+          moves: moves,
           pokemonType: pokemonType,
         );
   factory StatsModel.fromJson(Map<String, dynamic> json) {
+    var movesList = List<PokemonMoveModel>.from(json['moves']
+        .map<PokemonMoveModel>((moves) => PokemonMoveModel.fromJson(moves)));
+    movesList.sort((a, b) => a.learnAt!.compareTo(b.learnAt!));
+    movesList.removeWhere((element) => element.learnAt == 0);
     return StatsModel(
-      id: json['id'],
-      name: json['name'],
-      img:
-          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${json['id']}.png',
-      type: json['types'][0]['type']['name'],
-      height: json['height']
-          .toString()
-          .replaceAll(RegExp(r"(\d)(?=(\d{1})+$)"), r"0,"),
-      weight: json['weight']
-          .toString()
-          .replaceAll(RegExp(r"(\d)(?=(\d{1})+$)"), r"0,"),
-      hp: json['stats'][0]['base_stat'],
-      attack: json['stats'][1]['base_stat'],
-      defense: json['stats'][2]['base_stat'],
-      spAttack: json['stats'][3]['base_stat'],
-      spDefense: json['stats'][4]['base_stat'],
-      speed: json['stats'][5]['base_stat'],
-      category: json['species']['url'],
-      pokemonType: json['types']
-          .map<PokemonType>((e) => PokemonType(
-                name: e['type']['name'],
-                url: e['type']['url'],
-              ))
-          .toList(),
+        id: json['id'],
+        name: json['name'],
+        img:
+            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${json['id']}.png',
+        type: json['types'][0]['type']['name'],
+        height: (json['height'] / 10).toString(),
+        weight: (json['weight'] / 10).toString(),
+        hp: json['stats'][0]['base_stat'],
+        attack: json['stats'][1]['base_stat'],
+        defense: json['stats'][2]['base_stat'],
+        spAttack: json['stats'][3]['base_stat'],
+        spDefense: json['stats'][4]['base_stat'],
+        speed: json['stats'][5]['base_stat'],
+        category: json['species']['name'],
+        moves: movesList,
+        pokemonType: List<PokemonTypeModel>.from(json['types']
+            .map<PokemonTypeModel>((type) => PokemonMoveModel.fromJson(type))));
+  }
+}
+
+class PokemonTypeModel extends PokemonType {
+  const PokemonTypeModel({
+    String? name,
+    String? url,
+  }) : super(
+          name: name,
+          url: url,
+        );
+  factory PokemonTypeModel.fromJson(Map<String, dynamic> json) {
+    return PokemonTypeModel(
+      name: json['type']['name'],
+      url: json['type']['url'],
+    );
+  }
+}
+
+class PokemonMoveModel extends PokemonMove {
+  const PokemonMoveModel({
+    String? name,
+    String? url,
+    int? learnAt,
+  }) : super(
+          name: name,
+          url: url,
+          learnAt: learnAt,
+        );
+
+  factory PokemonMoveModel.fromJson(Map<String, dynamic> json) {
+    return PokemonMoveModel(
+      name: json['move']['name'],
+      url: json['move']['url'],
+      learnAt: json['version_group_details'][0]['level_learned_at'],
     );
   }
 }

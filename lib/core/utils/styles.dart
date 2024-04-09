@@ -28,4 +28,13 @@ class Styles {
 
   static const TextStyle textStyleTitle =
       TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold);
+
+  static const TextStyle pokemonFontTitleWhite = TextStyle(
+    fontFamily: 'Pixel',
+    color: Colors.white,
+  );
+  static const TextStyle pokemonFontTitleBlack = TextStyle(
+    fontFamily: 'Pixel',
+    color: Colors.black,
+  );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/core/utils/constanst.dart';
+import 'package:pokedex_flutter/core/utils/styles.dart';
 
 class PhotoThumb extends StatelessWidget {
   const PhotoThumb({
@@ -69,15 +70,10 @@ class PhotoThumb extends StatelessWidget {
           ),
           Align(
               alignment: Alignment.center,
-              child: Text(
-                'id: $id \n$name ',
-                textAlign: TextAlign.left,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontFamily: 'Pixel',
-                  color: Colors.white,
-                ),
-              )),
+              child: Text('id: $id \n$name ',
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  style: Styles.pokemonFontTitleWhite)),
         ],
       ),
     ]);

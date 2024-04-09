@@ -14,8 +14,8 @@ class PokemonStatsBindings extends Bindings {
     final GetPokemonDescription getPokemonDescriptionUseCase =
         GetPokemonDescription(repository);
 
-    Get.lazyPut<PokemonStatsController>(
-      () => PokemonStatsController(
+    Get.put<PokemonStatsController>(
+      PokemonStatsController(
           getPokemonStatsUseCase: getPokemonStatsUseCase,
           getPokemonDescriptionUseCase: getPokemonDescriptionUseCase),
     );

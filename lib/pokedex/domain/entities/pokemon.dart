@@ -21,6 +21,7 @@ class Pokemon extends Equatable {
   final int? defense;
   final int? spAttack;
   final int? spDefense;
+  final List<PokemonMove>? moves;
   final List<PokemonType>? pokemonType;
 
   const Pokemon({
@@ -37,6 +38,7 @@ class Pokemon extends Equatable {
     this.weight,
     this.category,
     this.id,
+    this.moves,
     this.pokemonType,
   });
 
@@ -48,10 +50,27 @@ class Pokemon extends Equatable {
       ];
 }
 
+class PokemonMove extends Equatable {
+  final String? name;
+  final String? url;
+
+  final int? learnAt;
+  const PokemonMove({
+    this.name,
+    this.url,
+    this.learnAt,
+  });
+  @override
+  List<Object?> get props => [name, url];
+}
+
 class PokemonType extends Equatable {
   final String? name;
   final String? url;
-  const PokemonType({this.name, this.url});
+  const PokemonType({
+    this.name,
+    this.url,
+  });
   @override
   List<Object?> get props => [name, url];
 }
