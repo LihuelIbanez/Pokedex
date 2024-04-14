@@ -37,4 +37,49 @@ class Styles {
     fontFamily: 'Pixel',
     color: Colors.black,
   );
+
+  static const TextStyle pokemonNameTitleBlack = TextStyle(
+    fontFamily: 'Pixel',
+    fontSize: 40,
+    color: Colors.black,
+  );
+
+  static const TextStyle statNumber = TextStyle(
+      fontFamily: 'Pixel',
+      color: Colors.black,
+      fontWeight: FontWeight.w300,
+      fontSize: 45);
+
+  static const TextStyle statName = TextStyle(
+      fontFamily: 'Pixel',
+      color: Colors.black,
+      fontWeight: FontWeight.w300,
+      fontSize: 43);
+
+  static const TextStyle description = TextStyle(
+    fontFamily: 'Pixel',
+    fontSize: 15,
+    color: Colors.grey,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle appbarStyle = TextStyle(
+    fontFamily: 'Pixel',
+    fontSize: 30,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle statOption = TextStyle(
+    fontFamily: 'Pixel',
+    fontSize: 11,
+    color: Colors.grey,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle subTitle = TextStyle(
+    fontFamily: 'Pixel',
+    fontSize: 19,
+    color: Colors.black,
+  );
 }

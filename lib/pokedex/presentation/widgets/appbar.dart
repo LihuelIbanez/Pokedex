@@ -13,6 +13,17 @@ class AppBarPokemon extends StatelessWidget implements PreferredSizeWidget {
       elevation: 2,
       title: title ?? Image.asset('assets/images/pokemon.png', height: 30),
       centerTitle: true,
+      leading: showback
+          ? IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                size: 30,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          : null,
       backgroundColor: ColorsPokemon.backgroundColor,
     );
   }

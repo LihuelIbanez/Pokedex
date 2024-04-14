@@ -1,5 +1,6 @@
 import 'package:dashed_circular_progress_bar/dashed_circular_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:pokedex_flutter/core/utils/styles.dart';
 
 class ProgressStat extends StatelessWidget {
   const ProgressStat(this.text,
@@ -36,20 +37,8 @@ class ProgressStat extends StatelessWidget {
             builder: (_, double value, __) => Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      '${value.toInt()}',
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 60),
-                    ),
-                    Text(
-                      text,
-                      style: TextStyle(
-                          color: fontColor ?? Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 26),
-                    ),
+                    Text('${value.toInt()}', style: Styles.statNumber),
+                    Text(text, style: Styles.statName),
                   ],
                 )),
       ),

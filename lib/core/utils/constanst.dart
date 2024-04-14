@@ -10,6 +10,7 @@ class ColorsPokemon {
   static const Color dividerColor = Color(0xFFBDBDBD);
   static const Color backgroundColor = Color(0xFF77DCB5);
   static const Color backgroundGalleryColor = Color(0xFFFFFFFF);
+  static const Color deepblack = Color.fromARGB(255, 76, 74, 74);
 
   //Colors for the types of pokemon
   static const Color typeBug = Color(0xFFA8B820);

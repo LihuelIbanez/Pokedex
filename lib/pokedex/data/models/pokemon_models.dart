@@ -74,6 +74,8 @@ class StatsModel extends Pokemon {
         .map<PokemonMoveModel>((moves) => PokemonMoveModel.fromJson(moves)));
     movesList.sort((a, b) => a.learnAt!.compareTo(b.learnAt!));
     movesList.removeWhere((element) => element.learnAt == 0);
+    final pokemonTypes = List<PokemonTypeModel>.from(json['types']
+        .map<PokemonTypeModel>((type) => PokemonTypeModel.fromJson(type)));
     return StatsModel(
         id: json['id'],
         name: json['name'],
@@ -90,8 +92,7 @@ class StatsModel extends Pokemon {
         speed: json['stats'][5]['base_stat'],
         category: json['species']['name'],
         moves: movesList,
-        pokemonType: List<PokemonTypeModel>.from(json['types']
-            .map<PokemonTypeModel>((type) => PokemonMoveModel.fromJson(type))));
+        pokemonType: pokemonTypes);
   }
 }
 
