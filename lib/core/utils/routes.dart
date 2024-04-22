@@ -1,10 +1,8 @@
 import 'package:get/get.dart';
 import 'package:pokedex_flutter/pokedex/bindings/gallery_of_pokemon_bindings.dart';
-import 'package:pokedex_flutter/pokedex/bindings/pokemon_abilitys_bindings.dart';
 import 'package:pokedex_flutter/pokedex/bindings/pokemon_stats_bindings.dart';
 import 'package:pokedex_flutter/pokedex/bindings/pokemon_versus_bindings.dart';
 import 'package:pokedex_flutter/pokedex/presentation/screens/gallery_of_pokemon_page.dart';
-import 'package:pokedex_flutter/pokedex/presentation/screens/pokemon_abilitys.dart';
 import 'package:pokedex_flutter/pokedex/presentation/screens/pokemon_stats_page.dart';
 import 'package:pokedex_flutter/pokedex/presentation/screens/pokemon_versus_page.dart';
 import 'package:pokedex_flutter/pokedex/presentation/screens/splash_screen_page.dart';
@@ -21,7 +19,7 @@ class Pages {
   static final pages = [
     GetPage(
         name: Routes.pokemonGallery,
-        page: (() => const GalleryOFPokemonPage()),
+        page: (() => const GalleryOfPokemonPage()),
         binding: GalleryOfPokemonBindings()),
     GetPage(
         name: Routes.pokemonStats,
@@ -35,9 +33,9 @@ class Pages {
       name: Routes.splashScreen,
       page: (() => const SplashScreen()),
     ),
-    GetPage(
-        name: Routes.pokemonAbilitys,
-        page: (() => const PokemonAbilityPage()),
-        binding: PokemonAbilitysBindings()),
+    // GetPage(
+    //     name: Routes.pokemonAbilitys,
+    //     page: (() => const PokemonAbilityPage()),
+    //     binding: PokemonAbilitysBindings()),
   ];
 }

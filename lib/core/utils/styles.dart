@@ -37,6 +37,11 @@ class Styles {
     fontFamily: 'Pixel',
     color: Colors.black,
   );
+  static const TextStyle pokemonCardTitleBlack = TextStyle(
+    fontFamily: 'Pixel',
+    fontSize: 15,
+    color: Colors.black,
+  );
 
   static const TextStyle pokemonNameTitleBlack = TextStyle(
     fontFamily: 'Pixel',

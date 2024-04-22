@@ -19,8 +19,9 @@ class PokemonImage extends StatelessWidget {
         child: Align(
           alignment: Alignment.topCenter,
           child: FadeInImage.assetNetwork(
+            placeholderFit: BoxFit.none,
             placeholder: 'assets/images/loading.gif',
-            image: pokemon.img ?? 'assets/images/pokemon.png',
+            image: pokemon.img!,
             fit: BoxFit.fitWidth,
           ),
         ),

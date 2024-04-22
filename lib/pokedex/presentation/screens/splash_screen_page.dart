@@ -26,7 +26,7 @@ class SplashScreenState extends State<SplashScreen>
   }
 
   void navigationPage() {
-    Get.toNamed(Routes.pokemonGallery);
+    Get.offAllNamed(Routes.pokemonGallery);
   }
 
   @override
@@ -56,9 +56,7 @@ class SplashScreenState extends State<SplashScreen>
                 end: Alignment.topCenter,
                 colors: [
               ColorsPokemon.backgroundColor,
-              ColorsPokemon.backgroundColor,
-              ColorsPokemon.backgroundColor,
-              ColorsPokemon.backgroundColor,
+              ColorsPokemon.backgroundColor
             ])),
         child: Stack(
           fit: StackFit.expand,

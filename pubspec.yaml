@@ -33,6 +33,7 @@ dependencies:
   pretty_dio_logger: ^1.1.1
   scroll_snap_list: ^0.9.1
   shared_preferences: ^2.0.15
+  palette_generator: ^0.3.3+3
 
 dev_dependencies:
   build_runner: ^2.1.0

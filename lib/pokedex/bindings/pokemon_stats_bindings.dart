@@ -9,7 +9,7 @@ class PokemonStatsBindings extends Bindings {
   @override
   void dependencies() {
     final PokemonRepository repository =
-        InjectorFactory.createCancelationsRepository();
+        InjectorFactory.createPokemonRepository();
     final GetPokemonStats getPokemonStatsUseCase = GetPokemonStats(repository);
     final GetPokemonDescription getPokemonDescriptionUseCase =
         GetPokemonDescription(repository);

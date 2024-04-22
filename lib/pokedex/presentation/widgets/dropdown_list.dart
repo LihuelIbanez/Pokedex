@@ -22,44 +22,42 @@ class DropDownDoubleList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SingleChildScrollView(
-          controller: scrollController,
-          child: Stack(
-            children: [
-              Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: controller.pokemonList.length + 1,
-                  itemBuilder: (_, index) {
-                    if (index < controller.pokemonList.length) {
-                      return GestureDetector(
-                        onTap: () {
-                          onTap(controller.pokemonList[index].id!,
-                              controller.pokemonList[index]);
-                        },
-                        child: PhotoThumb(
-                          name: controller.pokemonList[index].name ?? '',
-                          photoLow: controller.pokemonList[index].img!,
-                          id: controller.pokemonList[index].id ?? 0,
-                        ),
-                      );
-                    } else {
-                      return const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 32),
-                          child: Center(
-                              child: SizedBox(
-                                  height: 50, child: LoadingPokeball())));
-                    }
-                  },
-                ),
+    return SingleChildScrollView(
+      controller: controller.scrollController,
+      child: Column(
+        children: [
+          Obx(
+            () => GridView.builder(
+              physics: const BouncingScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1,
               ),
-            ],
+              shrinkWrap: true,
+              clipBehavior: Clip.hardEdge,
+              itemCount: controller.pokemonList.length,
+              itemBuilder: (_, index) {
+                return GestureDetector(
+                  onTap: () {
+                    onTap(controller.pokemonList[index].id!,
+                        controller.pokemonList[index]);
+                  },
+                  child: PhotoThumb(
+                    index: index < 9 ? index : 0,
+                    name: controller.pokemonList[index].name ?? '',
+                    photoLow: controller.pokemonList[index].img!,
+                    id: controller.pokemonList[index].id ?? 0,
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-      ],
+          const Center(
+              child: Padding(
+                  padding: EdgeInsets.only(bottom: 100, top: 20),
+                  child: SizedBox(height: 50, child: LoadingPokeball())))
+        ],
+      ),
     );
   }
 }

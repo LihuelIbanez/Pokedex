@@ -9,8 +9,7 @@ class LoadingPokeball extends StatelessWidget {
   Widget build(BuildContext context) {
     return Spin(
       infinite: true,
-      child: ZoomIn(
-          duration: const Duration(seconds: 2),
+      child: Center(
           child: SvgPicture.asset('assets/images/pokeball.svg', height: 150)),
     );
   }

@@ -36,10 +36,10 @@ class PokemonStatsController extends GetxController with StateMixin<Pokemon> {
 
   @override
   void onInit() async {
-    super.onInit();
     _id.value = Get.arguments[0];
     await getPokemonStats();
     await getPokemonDescription();
+    super.onInit();
   }
 
   String description() {

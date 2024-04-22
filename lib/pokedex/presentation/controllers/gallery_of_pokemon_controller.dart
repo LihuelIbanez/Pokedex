@@ -30,7 +30,6 @@ class GalleryOfPokemonController extends GetxController
   @override
   void onInit() async {
     await controllerStarted();
-    change(null, status: RxStatus.success());
     super.onInit();
   }
 
@@ -44,6 +43,8 @@ class GalleryOfPokemonController extends GetxController
     super.onClose();
   }
 
+  var allreadyCalled = false;
+
   Future<void> controllerStarted() async {
     if (pokemonList.isEmpty) {
       await loadPokemonList();
@@ -52,10 +53,14 @@ class GalleryOfPokemonController extends GetxController
     firstPokemonController = TextEditingController();
     secondPokemonController = TextEditingController();
     scrollController.addListener((() {
+      if (allreadyCalled) return;
       if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
+          (scrollController.position.maxScrollExtent)) {
         pageNumber++;
         loadPokemonList();
+        allreadyCalled = true;
+        Future.delayed(const Duration(seconds: 5))
+            .then((value) => allreadyCalled = false);
       }
     }));
     change(null, status: RxStatus.success());

@@ -8,7 +8,7 @@ class PokemonVersusBindings extends Bindings {
   @override
   void dependencies() {
     final PokemonRepository repository =
-        InjectorFactory.createCancelationsRepository();
+        InjectorFactory.createPokemonRepository();
     final GetPokemonStats getPokemonStatsUseCase = GetPokemonStats(repository);
     Get.lazyPut<PokemonVersusController>(
       () => PokemonVersusController(

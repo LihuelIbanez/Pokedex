@@ -8,7 +8,7 @@ class GalleryOfPokemonBindings extends Bindings {
   @override
   void dependencies() {
     final PokemonRepository repository =
-        InjectorFactory.createCancelationsRepository();
+        InjectorFactory.createPokemonRepository();
     final GetPokemonList pokemonListUseCase = GetPokemonList(repository);
 
     Get.lazyPut<GalleryOfPokemonController>(

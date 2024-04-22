@@ -5,7 +5,7 @@ import 'package:pokedex_flutter/pokedex/data/repository/pokemon_repository.dart'
 import 'package:pokedex_flutter/pokedex/domain/repository/pokemon_repository.dart';
 
 class InjectorFactory {
-  static PokemonRepository createCancelationsRepository() {
+  static PokemonRepository createPokemonRepository() {
     try {
       return Get.find<PokemonRepository>();
     } catch (_) {
